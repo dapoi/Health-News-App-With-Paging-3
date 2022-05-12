@@ -1,12 +1,19 @@
-package com.dapoi.healthnewsapp.source
+package com.dapoi.healthnewsapp.data.source.local
 
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dapoi.healthnewsapp.network.ArticlesItem
+import com.dapoi.healthnewsapp.data.source.remote.ArticlesItem
 
-@Database(entities = [ArticlesItem::class], version = 1)
+@Database(
+    entities = [ArticlesItem::class, RemoteKeys::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class NewsDatabase : RoomDatabase() {
+
+    abstract fun newsDao(): NewsDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         @Volatile

@@ -1,4 +1,4 @@
-package com.dapoi.healthnewsapp.data.source.remote.network
+package com.dapoi.healthnewsapp.data.source.remote
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

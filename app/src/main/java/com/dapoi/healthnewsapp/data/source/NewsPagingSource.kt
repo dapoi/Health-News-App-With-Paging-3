@@ -1,9 +1,9 @@
-package com.dapoi.healthnewsapp.source
+package com.dapoi.healthnewsapp.data.source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.dapoi.healthnewsapp.network.ApiService
-import com.dapoi.healthnewsapp.network.ArticlesItem
+import com.dapoi.healthnewsapp.data.source.remote.ApiService
+import com.dapoi.healthnewsapp.data.source.remote.ArticlesItem
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -18,7 +18,7 @@ class NewsPagingSource(private val service: ApiService) : PagingSource<Int, Arti
             LoadResult.Page(
                 data = news,
                 prevKey = if (page == 1) null else page - 1,
-                nextKey = if (news.isNullOrEmpty()) null else page + 1
+                nextKey = if (news.isEmpty()) null else page + 1
             )
         } catch (e: Exception) {
             val error = IOException("Please Check Internet Connection")

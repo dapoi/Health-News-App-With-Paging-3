@@ -2,13 +2,12 @@ package com.dapoi.healthnewsapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.Lifecycle
-import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.dapoi.healthnewsapp.data.source.remote.ArticlesItem
 import com.dapoi.healthnewsapp.databinding.ItemListBinding
-import com.dapoi.healthnewsapp.network.ArticlesItem
 
 class NewsAdapter : PagingDataAdapter<ArticlesItem, NewsAdapter.NewsViewHolder>(DIFF_CALLBACK) {
 
@@ -18,13 +17,20 @@ class NewsAdapter : PagingDataAdapter<ArticlesItem, NewsAdapter.NewsViewHolder>(
             binding.apply {
                 tvTitle.text = data.title
                 tvDesc.text = data.description
-                Glide.with(itemView.context).load(data.urlToImage).into(imgNews)
+
+                Glide.with(itemView.context).asBitmap()
+                    .load(data.urlToImage)
+                    .transition(BitmapTransitionOptions.withCrossFade())
+                    .into(imgNews)
             }
         }
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(getItem(position)!!)
+        val item = getItem(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {

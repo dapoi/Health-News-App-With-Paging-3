@@ -1,21 +1,24 @@
-package com.dapoi.healthnewsapp.source
+package com.dapoi.healthnewsapp.data.source
 
 import androidx.lifecycle.LiveData
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import androidx.paging.liveData
-import com.dapoi.healthnewsapp.network.ApiService
-import com.dapoi.healthnewsapp.network.ArticlesItem
+import androidx.paging.*
+import com.dapoi.healthnewsapp.data.source.local.NewsDatabase
+import com.dapoi.healthnewsapp.data.source.remote.ApiService
+import com.dapoi.healthnewsapp.data.source.remote.ArticlesItem
 
 class NewsRepository(private val newsDB: NewsDatabase, private val apiService: ApiService) {
 
+    @OptIn(ExperimentalPagingApi::class)
     fun getNews(): LiveData<PagingData<ArticlesItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
-            pagingSourceFactory = { NewsPagingSource(apiService) }
+            remoteMediator = NewsRemoteMediator(newsDB, apiService),
+            pagingSourceFactory = {
+//                NewsPagingSource(apiService)
+                newsDB.newsDao().getNews()
+            }
         ).liveData
     }
 }

@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var newsAdapter: NewsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,13 +24,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getData() {
-        val newsAdapter = NewsAdapter()
+        newsAdapter = NewsAdapter()
         binding.rvNews.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
             adapter = newsAdapter.withLoadStateFooter(
-                footer = LoadingStateAdapter {
-                    newsAdapter.retry()
-                }
+                footer = LoadingStateAdapter { newsAdapter.retry() }
             )
             setHasFixedSize(true)
         }
