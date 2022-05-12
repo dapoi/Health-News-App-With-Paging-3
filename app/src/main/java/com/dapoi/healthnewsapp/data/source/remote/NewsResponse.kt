@@ -1,4 +1,4 @@
-package com.dapoi.healthnewsapp.network
+package com.dapoi.healthnewsapp.data.source.remote.network
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -6,13 +6,13 @@ import com.squareup.moshi.Json
 
 data class NewsResponse(
 
-	@Json(name="totalResults")
+    @Json(name="totalResults")
 	val totalResults: Int,
 
-	@Json(name="articles")
+    @Json(name="articles")
 	val articles: List<ArticlesItem>,
 
-	@Json(name="status")
+    @Json(name="status")
 	val status: String
 )
 

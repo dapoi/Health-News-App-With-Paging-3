@@ -1,4 +1,4 @@
-package com.dapoi.healthnewsapp.network
+package com.dapoi.healthnewsapp.data.source.remote.network
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

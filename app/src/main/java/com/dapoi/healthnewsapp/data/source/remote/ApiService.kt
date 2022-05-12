@@ -1,4 +1,4 @@
-package com.dapoi.healthnewsapp.network
+package com.dapoi.healthnewsapp.data.source.remote.network
 
 import retrofit2.http.GET
 import retrofit2.http.Query
